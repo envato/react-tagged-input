@@ -33,7 +33,6 @@ module.exports = React.createClass({
     onRemoveTag: React.PropTypes.func,
     onEnter: React.PropTypes.func,
     unique: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-    autofocus: React.PropTypes.bool,
     backspaceDeletesWord: React.PropTypes.bool,
     placeholder: React.PropTypes.string,
     tags: React.PropTypes.arrayOf(React.PropTypes.any),
@@ -52,7 +51,6 @@ module.exports = React.createClass({
     return {
       delimiters: [' ', ','],
       unique: true,
-      autofocus: false,
       backspaceDeletesWord: true,
       tagOnBlur: false,
       clickTagToEdit: false,
@@ -107,7 +105,6 @@ module.exports = React.createClass({
     var input = (
       <input type="text"
         className="tagged-input"
-        ref="input"
         onKeyUp={this._handleKeyUp}
         onKeyDown={this._handleKeyDown}
         onChange={this._handleChange}
@@ -124,14 +121,6 @@ module.exports = React.createClass({
         {input}
       </div>
       );
-  },
-
-  componentDidMount: function () {
-    var self = this, s = self.state, p = self.props;
-
-    if (p.autofocus) {
-      self.refs.input;
-    }
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -244,10 +233,6 @@ module.exports = React.createClass({
       var value = e.target.value;
       value && this._validateAndTag(value);
     }
-  },
-
-  _handleClickOnWrapper: function (e) {
-    this.refs.input;
   },
 
   _validateAndTag: function (tagText, callback) {
